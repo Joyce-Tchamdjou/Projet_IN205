@@ -82,6 +82,7 @@ public class MembreImpl implements MembreDao{
 			st.setString(3, adresse);
 			st.setString(4, email);
 			st.setString(5, telephone);
+			st.setString(6, "basic");
 			st.executeUpdate();
 			ResultSet rs = st.getGeneratedKeys();
 			if (rs.next()) {
@@ -124,16 +125,12 @@ public class MembreImpl implements MembreDao{
 	}
 
 	public int count() throws DaoException{
-		int cnt = 0;
-		try(Connection con = ConnectionManager.getConnection();
-			PreparedStatement st = con.prepareStatement(COUNT)){
-			ResultSet rs = st.executeQuery();
-			while(rs.next()){
-				cnt++;
-			}
-		}catch(SQLException e){
+		List<Membre> membres = new ArrayList<>();
+		try{
+			 membres = getList();
+		}catch(DaoException e){
 			System.out.println(e);
 		}
-		return cnt;
+		return membres.size();
 	}
 }

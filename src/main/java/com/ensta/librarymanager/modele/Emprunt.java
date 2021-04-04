@@ -14,12 +14,12 @@ public class Emprunt{
 	/**date de retour*/
 	static LocalDate dateRetour;
 
-	public Emprunt(int id, Membre idMembre, Livre idLivre, String dateEmprunt1, String dateRetour1){
+	public Emprunt(int id, Membre idMembre, Livre idLivre, LocalDate dateEmprunt1, LocalDate dateRetour1){
 		this.id = id;
 		this.idMembre = idMembre;
 		this.idLivre = idLivre;
-		this.dateEmprunt = LocalDate.parse(dateEmprunt1);
-		this.dateRetour = LocalDate.parse(dateRetour1);
+		this.dateEmprunt = dateEmprunt1;
+		this.dateRetour = dateRetour1;
 	}
 
 	public Emprunt(){}
@@ -52,21 +52,21 @@ public class Emprunt{
 		return dateEmprunt;
 	}
 
-	public void setDateEmprunt(String dateEmprunt1){
-		this.dateEmprunt = LocalDate.parse(dateEmprunt1);
+	public void setDateEmprunt(LocalDate dateEmprunt1){
+		this.dateEmprunt = dateEmprunt1;
 	}
 
 	public LocalDate getDateRetour(){
 		return dateRetour;
 	}
 
-	public void setDateRetour(String dateRetour1){
-		this.dateRetour = LocalDate.parse(dateRetour1);
+	public void setDateRetour(LocalDate dateRetour1){
+		this.dateRetour = dateRetour1;
 	}
 
 	@Override
 	public String toString(){
-		return id + ", " + idMembre.toString() + ", " + idLivre.toString() + ", " + dateEmprunt.toString() + ", " + dateRetour.toString();
+		return id + ", [" + idMembre.toString() + "], [" + idLivre.toString() + "], " + dateEmprunt + ", " + dateRetour;
 	}
 }
 

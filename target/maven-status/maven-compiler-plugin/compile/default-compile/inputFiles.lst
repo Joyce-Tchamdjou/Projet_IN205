@@ -4,6 +4,7 @@
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/dao/MembreDao.java
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/utils/FillDatabase.java
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/modele/Abonnement.java
+/home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/test/ServiceTest.java
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/dao/impl/MembreImpl.java
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/service/MembreService.java
 /home/joycepascale/Projet2/src/main/java/com/ensta/librarymanager/test/DaoTest.java

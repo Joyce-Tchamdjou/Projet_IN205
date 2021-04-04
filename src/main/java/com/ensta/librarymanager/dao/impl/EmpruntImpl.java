@@ -35,34 +35,29 @@ public class EmpruntImpl implements EmpruntDao{
 		List<Emprunt> result = new ArrayList<Emprunt>();
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement st = con.prepareStatement(SELECT_ALL)){
+			LivreDao livreDao = LivreImpl.getInstance();
+			MembreDao membreDao = MembreImpl.getInstance();
+			java.util.Date iVal = new java.util.Date();
 			ResultSet rs = st.executeQuery();
 			while(rs.next()){
 				Emprunt emprunt = new Emprunt();
 
-				Membre membre = new Membre();
-				membre.setId(rs.getInt("id"));
-				membre.setNom(rs.getString("nom"));
-				membre.setPrenom(rs.getString("prenom"));
-				membre.setAdresse(rs.getString("adresse"));
-				membre.setEmail(rs.getString("email"));
-				membre.setTelephone(rs.getString("telephone"));
-				String ab = rs.getString("abonnement");
-				membre.setAbonnement(Abonnement.valueOf(ab));
-
-				Livre livre = new Livre();
-				livre.setId(rs.getInt("id"));
-				livre.setTitre(rs.getString("titre"));
-				livre.setAuteur(rs.getString("auteur"));
-				livre.setIsbn(rs.getString("isbn"));
+				Membre membre = membreDao.getById(rs.getInt("idMembre"));
+				Livre livre = livreDao.getById(rs.getInt("idLivre"));
 
 				emprunt.setId(rs.getInt("id"));
 				emprunt.setIdMembre(membre);
 				emprunt.setIdLivre(livre);
-				emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toString());
-				emprunt.setDateRetour(rs.getDate("dateRetour").toString());
+				emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
+				iVal = rs.getDate("dateRetour");
+				if(rs.wasNull()){
+					emprunt.setDateRetour(null);
+				}else{
+					emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+				}
 				result.add(emprunt);
 			}
-		}catch(SQLException e){
+		}catch(Exception e){
 			System.out.println(e);
 		}
 		return result;
@@ -72,34 +67,27 @@ public class EmpruntImpl implements EmpruntDao{
 		List<Emprunt> result = new ArrayList<Emprunt>();
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement st = con.prepareStatement(GET_ALL)){
+			LivreDao livreDao = LivreImpl.getInstance();
+			MembreDao membreDao = MembreImpl.getInstance();
+			java.util.Date iVal = new java.util.Date();
 			ResultSet rs = st.executeQuery();
 			while(rs.next()){
-				if(rs.getDate("dateRetour") == null){
-					Emprunt emprunt = new Emprunt();
+				Emprunt emprunt = new Emprunt();
 
-					Membre membre = new Membre();
-					membre.setId(rs.getInt("id"));
-					membre.setNom(rs.getString("nom"));
-					membre.setPrenom(rs.getString("prenom"));
-					membre.setAdresse(rs.getString("adresse"));
-					membre.setEmail(rs.getString("email"));
-					membre.setTelephone(rs.getString("telephone"));
-					String ab = rs.getString("abonnement");
-					membre.setAbonnement(Abonnement.valueOf(ab));
+				Membre membre = membreDao.getById(rs.getInt("idMembre"));
+				Livre livre = livreDao.getById(rs.getInt("idLivre"));
 
-					Livre livre = new Livre();
-					livre.setId(rs.getInt("id"));
-					livre.setTitre(rs.getString("titre"));
-					livre.setAuteur(rs.getString("auteur"));
-					livre.setIsbn(rs.getString("isbn"));
-
-					emprunt.setId(rs.getInt("id"));
-					emprunt.setIdMembre(membre);
-					emprunt.setIdLivre(livre);
-					emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toString());
+				emprunt.setId(rs.getInt("id"));
+				emprunt.setIdMembre(membre);
+				emprunt.setIdLivre(livre);
+				emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
+				iVal = rs.getDate("dateRetour");
+				if(rs.wasNull()){
 					emprunt.setDateRetour(null);
-					result.add(emprunt);
+				}else{
+					emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
 				}
+				result.add(emprunt);
 				
 			}
 		}catch(SQLException e){
@@ -112,35 +100,28 @@ public class EmpruntImpl implements EmpruntDao{
 		List<Emprunt> result = new ArrayList<Emprunt>();
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement st = con.prepareStatement(GET_BYMEMBRE)){
+			LivreDao livreDao = LivreImpl.getInstance();
+			MembreDao membreDao = MembreImpl.getInstance();
+			java.util.Date iVal = new java.util.Date();
 			st.setInt(1, idMembre);
 			ResultSet rs = st.executeQuery();
 			while(rs.next()){
-				if(rs.getDate("dateRetour") == null){
-					Emprunt emprunt = new Emprunt();
+				Emprunt emprunt = new Emprunt();
 
-					Membre membre = new Membre();
-					membre.setId(rs.getInt("id"));
-					membre.setNom(rs.getString("nom"));
-					membre.setPrenom(rs.getString("prenom"));
-					membre.setAdresse(rs.getString("adresse"));
-					membre.setEmail(rs.getString("email"));
-					membre.setTelephone(rs.getString("telephone"));
-					String ab = rs.getString("abonnement");
-					membre.setAbonnement(Abonnement.valueOf(ab));
+				Membre membre = membreDao.getById(rs.getInt("idMembre"));
+				Livre livre = livreDao.getById(rs.getInt("idLivre"));
 
-					Livre livre = new Livre();
-					livre.setId(rs.getInt("id"));
-					livre.setTitre(rs.getString("titre"));
-					livre.setAuteur(rs.getString("auteur"));
-					livre.setIsbn(rs.getString("isbn"));
-
-					emprunt.setId(rs.getInt("id"));
-					emprunt.setIdMembre(membre);
-					emprunt.setIdLivre(livre);
-					emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toString());
+				emprunt.setId(rs.getInt("id"));
+				emprunt.setIdMembre(membre);
+				emprunt.setIdLivre(livre);
+				emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
+				iVal = rs.getDate("dateRetour");
+				if(rs.wasNull()){
 					emprunt.setDateRetour(null);
-					result.add(emprunt);
+				}else{
+					emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
 				}
+				result.add(emprunt);
 				
 			}
 		}catch(SQLException e){
@@ -178,7 +159,7 @@ public class EmpruntImpl implements EmpruntDao{
 					emprunt.setId(rs.getInt("id"));
 					emprunt.setIdMembre(membre);
 					emprunt.setIdLivre(livre);
-					emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toString());
+					emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
 					emprunt.setDateRetour(null);
 					result.add(emprunt);
 				}
@@ -195,10 +176,11 @@ public class EmpruntImpl implements EmpruntDao{
 		try(Connection con = ConnectionManager.getConnection();
 			PreparedStatement st = con.prepareStatement(GET_BYID)){
 			st.setInt(1, id);
+			java.util.Date iVal = new java.util.Date();
 			ResultSet rs = st.executeQuery();
 			while(rs.next()){
 				Membre membre = new Membre();
-				membre.setId(rs.getInt("id"));
+				membre.setId(rs.getInt("idMembre"));
 				membre.setNom(rs.getString("nom"));
 				membre.setPrenom(rs.getString("prenom"));
 				membre.setAdresse(rs.getString("adresse"));
@@ -208,16 +190,21 @@ public class EmpruntImpl implements EmpruntDao{
 				membre.setAbonnement(Abonnement.valueOf(ab));
 
 				Livre livre = new Livre();
-				livre.setId(rs.getInt("id"));
+				livre.setId(rs.getInt("idLivre"));
 				livre.setTitre(rs.getString("titre"));
 				livre.setAuteur(rs.getString("auteur"));
 				livre.setIsbn(rs.getString("isbn"));
 
-				result.setId(rs.getInt("id"));
+				result.setId(rs.getInt("idEmprunt"));
 				result.setIdMembre(membre);
 				result.setIdLivre(livre);
-				result.setDateEmprunt(rs.getDate("dateEmprunt").toString());
-				result.setDateRetour(rs.getDate("dateRetour").toString());
+				result.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
+				iVal = rs.getDate("dateRetour");
+				if(rs.wasNull()){
+					result.setDateRetour(null);
+				}else{
+					result.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+				}
 			}
 		}catch(SQLException e){
 			System.out.println(e);
@@ -231,6 +218,7 @@ public class EmpruntImpl implements EmpruntDao{
 			st.setInt(1, idMembre);
 			st.setInt(2, idLivre);
 			st.setObject(3, dateEmprunt);
+			st.setObject(4, null);
 			st.executeUpdate();
 		}catch(SQLException e){
 			System.out.println(e);
@@ -254,16 +242,12 @@ public class EmpruntImpl implements EmpruntDao{
 	}
 
 	public int count() throws DaoException{
-		int cnt = 0;
-		try(Connection con = ConnectionManager.getConnection();
-			PreparedStatement st = con.prepareStatement(COUNT)){
-			ResultSet rs = st.executeQuery();
-			while(rs.next()){
-				cnt++;
-			}
-		}catch(SQLException e){
+		List<Emprunt> emprunts = new ArrayList<>();
+		try{
+			 emprunts = getList();
+		}catch(DaoException e){
 			System.out.println(e);
 		}
-		return cnt;
+		return emprunts.size();
 	}
 }

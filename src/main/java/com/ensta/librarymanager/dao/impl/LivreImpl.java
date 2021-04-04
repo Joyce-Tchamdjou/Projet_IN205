@@ -112,16 +112,12 @@ public class LivreImpl implements LivreDao{
 	}
 
 	public int count() throws DaoException{
-		int cnt = 0;
-		try(Connection con = ConnectionManager.getConnection();
-			PreparedStatement st = con.prepareStatement(COUNT)){
-			ResultSet rs = st.executeQuery();
-			while(rs.next()){
-				cnt++;
-			}
-		}catch(SQLException e){
+		List<Livre> livres = new ArrayList<>();
+		try{
+			 livres = getList();
+		}catch(DaoException e){
 			System.out.println(e);
 		}
-		return cnt;
+		return livres.size();
 	}
 }

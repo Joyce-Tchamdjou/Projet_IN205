@@ -20,4 +20,5 @@ com/ensta/librarymanager/service/LivreService.class
 com/ensta/librarymanager/modele/Livre.class
 com/ensta/librarymanager/service/impl/LivreServiceImpl.class
 com/ensta/librarymanager/dao/MembreDao.class
+com/ensta/librarymanager/test/ServiceTest.class
 com/ensta/librarymanager/service/EmpruntService.class
