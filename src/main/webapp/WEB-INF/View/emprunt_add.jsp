@@ -30,6 +30,9 @@
 	              <option value="" disabled selected>-- Livres --</option>
 	              <!-- TODO : parcourir la liste des livres disponibles et afficher autant d'options que nécessaire, sur la base de l'exemple ci-dessous -->
                   <option value="idDuLivre">"Titre du livre", de Nom de l'auteur</option>
+                  <c:forEach var="livre" items='${requestScope.livresD}'>
+                    <option value="idDuLivre">${livre.titre}, ${livre.auteur}</option>
+                  </c:forEach>
 	            </select>
 	          </div>
 	          <div class="input-field col s6">
@@ -37,6 +40,9 @@
 	              <option value="" disabled selected>-- Membres --</option>
 	              <!-- TODO : parcourir la liste des membres pouvant emprunter et afficher autant d'options que nécessaire, sur la base de l'exemple ci-dessous -->
                   <option value="idDuMembre">Prénom et nom du membre</option>
+                  <c:forEach var="membre" items='${requestScope.membresD}'>
+                    <option value="idDuMembre">${membre.prenom},  ${membre.nom}</option>
+                </c:forEach>
 	            </select>
 	          </div>
 	        </div>
